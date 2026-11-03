@@ -6,11 +6,11 @@
 
 function initTriageSimulator() {
   const scenarioSelect = document.getElementById('scenarioSelector');
-  if (!scenarioSelect || !window.MANAS_DATA) return;
+  if (!scenarioSelect || !window.RAKTIM_DATA) return;
 
   // Populate dropdown options
   scenarioSelect.innerHTML = '';
-  window.MANAS_DATA.scenarios.forEach(sc => {
+  window.RAKTIM_DATA.scenarios.forEach(sc => {
     const opt = document.createElement('option');
     opt.value = sc.id;
     opt.textContent = sc.title;
@@ -18,7 +18,7 @@ function initTriageSimulator() {
   });
 
   // Load first scenario by default
-  loadScenario(window.MANAS_DATA.scenarios[0].id);
+  loadScenario(window.RAKTIM_DATA.scenarios[0].id);
 
   scenarioSelect.addEventListener('change', (e) => {
     loadScenario(e.target.value);
@@ -26,7 +26,7 @@ function initTriageSimulator() {
 }
 
 function loadScenario(scenarioId) {
-  const sc = window.MANAS_DATA.scenarios.find(s => s.id === scenarioId);
+  const sc = window.RAKTIM_DATA.scenarios.find(s => s.id === scenarioId);
   if (!sc) return;
 
   const rawInput = document.getElementById('triageRawInput');
@@ -109,13 +109,13 @@ window.triggerAnalyze = function() {
     }
     // Match closest scenario or parse
     const text = rawInput.value.toLowerCase();
-    let matched = window.MANAS_DATA.scenarios[0];
+    let matched = window.RAKTIM_DATA.scenarios[0];
     if (text.includes('exam') || text.includes('পৰীক্ষা') || text.includes('die')) {
-      matched = window.MANAS_DATA.scenarios[1];
+      matched = window.RAKTIM_DATA.scenarios[1];
     } else if (text.includes('alcohol') || text.includes('সুৰা') || text.includes('মোৰ গিৰীয়ে')) {
-      matched = window.MANAS_DATA.scenarios[2];
+      matched = window.RAKTIM_DATA.scenarios[2];
     } else if (text.includes('সন্তান') || text.includes('মাক') || text.includes('postpartum')) {
-      matched = window.MANAS_DATA.scenarios[3];
+      matched = window.RAKTIM_DATA.scenarios[3];
     }
     runTriageAnalysis(matched);
     showToast("NLP Triage Complete: Clinical Entities & Shift Brief Generated.");

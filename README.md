@@ -1,17 +1,17 @@
-# MANAS-Assam: Intelligent Mental Health Decision-Support & Operational Planning Platform
-### An Operational Extension for Tele-MANAS Assam | National Health Mission, Government of Assam
+# Tele-Raktim-Assam: Intelligent Mental Health Decision-Support & Operational Planning Platform
+### An Operational Extension for Tele-Raktim Assam | National Health Mission, Government of Assam
 **Compliant with e-Prastuti Standard Website Framework & Guidelines for Indian Government Websites (GIGW 3.0)**
 
 ---
 
 ## 🏛️ Executive Summary & Government Context
 
-In Assam, the **Tele-MANAS** helpline (Toll-Free `14416`) receives thousands of distress calls every month from citizens grappling with post-disaster trauma, adolescent exam stress, depression, and substance addiction. However, prior to this platform:
+In Assam, the **Tele-Raktim** helpline (Toll-Free `14416`) receives thousands of distress calls every month from citizens grappling with post-disaster trauma, adolescent exam stress, depression, and substance addiction. However, prior to this platform:
 1. **Helpline records remained passive:** Call notes sat in silos without automated risk stratification or real-time clinical synthesis.
 2. **Resource deployment was reactive:** Mobile Mental Health Units (MMUs) and specialist doctors were dispatched via intuition and manual registers rather than predictive epidemiology.
 3. **The "Lost-to-Care" gap:** More than 60% of patients referred from tele-counselling to physical district hospitals dropped out due to social stigma, fear, or travel costs.
 
-**MANAS-Assam** is an advanced operational decision-support layer engineered to bridge these gaps. It does **not** replace human doctors or deliver autonomous diagnoses; instead, it provides a **clinical copilot for tele-counsellors**, a **predictive GIS command radar for District Mental Health Officers (DMHOs)**, and a **closed-loop tasking system for grassroots ASHA workers**.
+**Tele-Raktim-Assam** is an advanced operational decision-support layer engineered to bridge these gaps. It does **not** replace human doctors or deliver autonomous diagnoses; instead, it provides a **clinical copilot for tele-counsellors**, a **predictive GIS command radar for District Mental Health Officers (DMHOs)**, and a **closed-loop tasking system for grassroots ASHA workers**.
 
 ---
 
@@ -80,7 +80,7 @@ npx serve .
 
 1. **Non-Autonomous Decision-Support:** Operates strictly under human clinical supervision (complying with the *Mental Healthcare Act, 2017*).
 2. **Data Privacy by Design:** Zero raw patient records leave state custody; compliant with the *Digital Personal Data Protection (DPDP) Act, 2023*.
-3. **Plugs into Existing Systems:** Designed as an extension layer over existing Tele-MANAS software and NHM infrastructure, requiring zero expensive overhaul.
+3. **Plugs into Existing Systems:** Designed as an extension layer over existing Tele-Raktim software and NHM infrastructure, requiring zero expensive overhaul.
 4. **Tested Against Real Assam Geographies:** Pre-configured with operational data covering Kamrup Metropolitan, Sonitpur, Dhemaji, Dibrugarh, Cachar, Jorhat, Nagaon, and Barpeta.
 
 ---

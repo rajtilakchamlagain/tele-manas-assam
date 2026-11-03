@@ -1,15 +1,15 @@
 /**
- * MANAS-Assam Bilingual Translation Matrix
+ * Tele-Raktim-Assam Bilingual Translation Matrix
  * Standard e-Prastuti Language Dictionary (English & Assamese - অসমীয়া)
  */
 
-const MANAS_I18N = {
+const RAKTIM_I18N = {
   en: {
     // Header & Meta
     govtOfAssam: "GOVERNMENT OF ASSAM",
     deptTitle: "Department of Health & Family Welfare",
     nhmTitle: "National Health Mission, Assam",
-    portalTitle: "Tele-MANAS Assam",
+    portalTitle: "Tele-Raktim Assam",
     portalSubtitle: "Intelligent Mental Health Decision-Support & Operational Planning Platform",
     stateNodalCenter: "State Nodal Hub: Gauhati Medical College & Hospital (GMCH) | Regional Centre: LGBRIMH Tezpur",
     
@@ -24,7 +24,7 @@ const MANAS_I18N = {
 
     // Navigation
     navHome: "Home",
-    navAbout: "About Tele-MANAS",
+    navAbout: "About Tele-Raktim",
     navMap: "District Heatmap & GIS",
     navTriage: "Clinical Triage Sandbox",
     navPlanning: "Mobile Camp Planner",
@@ -36,7 +36,7 @@ const MANAS_I18N = {
     tollFreeEmergency: "24x7 TOLL-FREE MENTAL HEALTH HELPLINE",
     tollFreeNumber: "14416 / 1800 891 4416",
     heroHeading: "Earlier Identification & Proactive Service Planning for Mental Health in Assam",
-    heroDesc: "A certified decision-support extension layer built over Tele-MANAS and NHM infrastructure. Empowering counsellors with AI clinical copilots and directing mobile mental health units and essential medications to vulnerable districts before crises escalate.",
+    heroDesc: "A certified decision-support extension layer built over Tele-Raktim and NHM infrastructure. Empowering counsellors with AI clinical copilots and directing mobile mental health units and essential medications to vulnerable districts before crises escalate.",
     btnCallNow: "Call 14416 Now",
     btnOpenTriage: "Launch Counsellor Copilot",
     btnViewMap: "Inspect District Radar",
@@ -114,7 +114,7 @@ const MANAS_I18N = {
     govtOfAssam: "অসম চৰকাৰ",
     deptTitle: "স্বাস্থ্য আৰু পৰিয়াল কল্যাণ বিভাগ",
     nhmTitle: "ৰাষ্ট্ৰীয় স্বাস্থ্য অভিযান, অসম",
-    portalTitle: "টেলি-মানস অসম",
+    portalTitle: "টেলি-ৰক্তিম অসম",
     portalSubtitle: "মানসিক স্বাস্থ্যৰ সিদ্ধান্ত-সহায় আৰু অভিযান পৰিকল্পনা মঞ্চ",
     stateNodalCenter: "ৰাজ্যিক সমন্বয় কেন্দ্ৰ: গুৱাহাটী চিকিৎসা মহাবিদ্যালয় (GMCH) | আঞ্চলিক কেন্দ্ৰ: এল.জি.বি.আই.এম.এইচ. তেজপুৰ",
 
@@ -129,7 +129,7 @@ const MANAS_I18N = {
 
     // Navigation
     navHome: "মূল পৃষ্ঠা",
-    navAbout: "টেলি-মানস পৰিচিতি",
+    navAbout: "টেলি-ৰক্তিম পৰিচিতি",
     navMap: "জিলা মানচিত্ৰ আৰু জিআইএছ",
     navTriage: "ক্লিনিকেল ট্ৰায়াজ পৰীক্ষাগাৰ",
     navPlanning: "ভ্ৰাম্যমাণ শিবিৰ পৰিকল্পক",
@@ -141,7 +141,7 @@ const MANAS_I18N = {
     tollFreeEmergency: "২৪x৭ বিনামূলীয়া মানসিক স্বাস্থ্য হেল্পলাইন",
     tollFreeNumber: "১৪৪১৬ / ১৮০০ ৮৯১ ৪৪১৬",
     heroHeading: "অসমত মানসিক স্বাস্থ্য সেৱাৰ আগতীয়া চিনাক্তকৰণ আৰু সুপৰিকল্পিত ব্যৱস্থাপনা",
-    heroDesc: "ৰাষ্ট্ৰীয় স্বাস্থ্য অভিযান আৰু টেলি-মানস ব্যৱস্থাৰ ওপৰত নিৰ্মিত এক অত্যাধুনিক এআই সিদ্ধান্ত-সহায় মঞ্চ। পৰামৰ্শদাতাসকলক ক্লিনিকেল সহায় আৰু জিলা স্বাস্থ্য বিষয়াসকলক ভ্ৰাম্যমাণ মানসিক স্বাস্থ্য বাহন আৰু ঔষধ সঠিক সময়ত প্ৰেৰণ কৰাত সহায় কৰে।",
+    heroDesc: "ৰাষ্ট্ৰীয় স্বাস্থ্য অভিযান আৰু টেলি-ৰক্তিম ব্যৱস্থাৰ ওপৰত নিৰ্মিত এক অত্যাধুনিক এআই সিদ্ধান্ত-সহায় মঞ্চ। পৰামৰ্শদাতাসকলক ক্লিনিকেল সহায় আৰু জিলা স্বাস্থ্য বিষয়াসকলক ভ্ৰাম্যমাণ মানসিক স্বাস্থ্য বাহন আৰু ঔষধ সঠিক সময়ত প্ৰেৰণ কৰাত সহায় কৰে।",
     btnCallNow: "এতিয়াই ১৪৪১৬ নম্বৰত কল কৰক",
     btnOpenTriage: "ট্ৰায়াজ এআই পৰীক্ষা কৰক",
     btnViewMap: "জিলা মানচিত্ৰ চাওক",
@@ -180,7 +180,7 @@ const MANAS_I18N = {
 
     // ASHA Section
     ashaHeading: "তৃণমূল পৰ্যায়ৰ সমন্বয় আৰু আশা কৰ্মীৰ কাৰ্যতালিকা",
-    ashaSubheading: "টেলি-মানসৰ পৰা বিশেষজ্ঞ চিকিৎসালয়লৈ প্ৰেৰণ কৰা ৰোগী যাতে বঞ্চিত নহয়, তাৰ বাবে গ্ৰাম্য আশা আৰু স্বাস্থ্য বিষয়াৰ সৈতে সংযোগ।",
+    ashaSubheading: "টেলি-ৰক্তিমৰ পৰা বিশেষজ্ঞ চিকিৎসালয়লৈ প্ৰেৰণ কৰা ৰোগী যাতে বঞ্চিত নহয়, তাৰ বাবে গ্ৰাম্য আশা আৰু স্বাস্থ্য বিষয়াৰ সৈতে সংযোগ।",
     colTask: "কাৰ্য আইডি",
     colDistrict: "জিলা আৰু উপ-কেন্দ্ৰ",
     colPatient: "ৰোগী ক'ড",
@@ -215,4 +215,6 @@ const MANAS_I18N = {
   }
 };
 
-window.MANAS_I18N = MANAS_I18N;
+window.RAKTIM_I18N = RAKTIM_I18N;
+
+window.MANAS_I18N = window.RAKTIM_I18N;

@@ -5,7 +5,7 @@
       <stop offset="100%" stop-color="#0F766E"/>
     </linearGradient>
   </defs>
-  <!-- Modern Tele-MANAS Emblem -->
+  <!-- Modern Tele-Raktim Emblem -->
   <g transform="translate(6, 4)">
     <circle cx="21" cy="21" r="20" fill="#F0FDF4" stroke="#0D9488" stroke-width="1.8"/>
     <!-- Head silhouette with brain neurons/petals -->
@@ -20,7 +20,7 @@
     <path d="M28,28 C28,33 22,33 20,33" fill="none" stroke="#0284C7" stroke-width="1.2"/>
   </g>
   <!-- Text Label -->
-  <text x="56" y="22" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#1A365D" letter-spacing="0.5">Tele-MANAS</text>
+  <text x="56" y="22" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#1A365D" letter-spacing="0.5">Tele-Raktim</text>
   <text x="57" y="34" font-family="'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="bold" fill="#0D9488" letter-spacing="0.8">ASSAM CELL | 14416</text>
-  <text x="57" y="42" font-family="'Segoe UI', Roboto, sans-serif" font-size="6" font-weight="500" fill="#64748B">24x7 Free Mental Health Tele-Service</text>
+  <text x="57" y="42" font-family="'Segoe UI', Roboto, sans-serif" font-size="6" font-weight="500" fill="#64748B">Next-Gen Decision-Support Platform</text>
 </svg>

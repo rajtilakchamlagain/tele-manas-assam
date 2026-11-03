@@ -1,5 +1,5 @@
 /**
- * MANAS-Assam Main Controller
+ * Tele-Raktim-Assam Main Controller
  * Handles e-Prastuti Accessibility, Bilingual i18n, Tab Navigation,
  * Search Modal, and Government Dispatch Order Modals.
  */
@@ -48,7 +48,7 @@ function toggleLanguage() {
 }
 
 function applyLanguage(lang) {
-  const dictionary = window.MANAS_I18N[lang];
+  const dictionary = window.RAKTIM_I18N[lang];
   if (!dictionary) return;
 
   // Update elements with data-i18n
@@ -102,8 +102,8 @@ function toggleContrast() {
 
 function triggerScreenReaderInfo() {
   const msg = window.currentLang === 'as'
-    ? 'টেলি-মানস অসম প’ৰ্টেললৈ স্বাগতম। এই ৱেবছাইটটো স্ক্ৰীণ ৰিডাৰৰ সৈতে ব্যৱহাৰৰ বাবে সম্পূৰ্ণ উপযুক্ত।'
-    : 'Welcome to Tele-MANAS Assam Portal. This website is fully compliant with WCAG 2.1 AA and compatible with screen readers including NVDA and JAWS.';
+    ? 'টেলি-ৰক্তিম অসম প’ৰ্টেললৈ স্বাগতম। এই ৱেবছাইটটো স্ক্ৰীণ ৰিডাৰৰ সৈতে ব্যৱহাৰৰ বাবে সম্পূৰ্ণ উপযুক্ত।'
+    : 'Welcome to Tele-Raktim Assam Portal. This website is fully compliant with WCAG 2.1 AA and compatible with screen readers including NVDA and JAWS.';
   
   if ('speechSynthesis' in window) {
     const utterance = new SpeechSynthesisUtterance(msg);
@@ -155,12 +155,12 @@ function switchTab(tabId) {
    ========================================================================== */
 function populateAshaTasks() {
   const tbody = document.getElementById('ashaTasksTableBody');
-  if (!tbody || !window.MANAS_DATA) return;
+  if (!tbody || !window.RAKTIM_DATA) return;
 
   const currentLang = window.currentLang || 'en';
   tbody.innerHTML = '';
 
-  window.MANAS_DATA.ashaTasks.forEach(task => {
+  window.RAKTIM_DATA.ashaTasks.forEach(task => {
     const tr = document.createElement('tr');
     tr.className = 'border-b border-slate-100 hover:bg-slate-50 transition-colors text-xs sm:text-sm';
 
@@ -186,12 +186,12 @@ function populateAshaTasks() {
 
 function populateDocumentsTable() {
   const tbody = document.getElementById('documentsTableBody');
-  if (!tbody || !window.MANAS_DATA) return;
+  if (!tbody || !window.RAKTIM_DATA) return;
 
   const currentLang = window.currentLang || 'en';
   tbody.innerHTML = '';
 
-  window.MANAS_DATA.documents.forEach(doc => {
+  window.RAKTIM_DATA.documents.forEach(doc => {
     const tr = document.createElement('tr');
     tr.className = 'border-b border-slate-100 hover:bg-slate-50 transition-colors text-xs sm:text-sm';
     const displayTitle = currentLang === 'as' ? doc.titleAs : doc.title;
@@ -290,14 +290,14 @@ function handleSearchQuery(query) {
   let matches = [];
 
   // Search districts
-  window.MANAS_DATA.districts.forEach(d => {
+  window.RAKTIM_DATA.districts.forEach(d => {
     if (d.name.toLowerCase().includes(q) || d.topComplaint.toLowerCase().includes(q)) {
-      matches.push({ type: 'District Radar', title: `${d.name} (${d.tier} Alert)`, action: `switchTab('map'); selectDistrict(window.MANAS_DATA.districts.find(x => x.id === '${d.id}')); closeSearchModal();` });
+      matches.push({ type: 'District Radar', title: `${d.name} (${d.tier} Alert)`, action: `switchTab('map'); selectDistrict(window.RAKTIM_DATA.districts.find(x => x.id === '${d.id}')); closeSearchModal();` });
     }
   });
 
   // Search documents
-  window.MANAS_DATA.documents.forEach(doc => {
+  window.RAKTIM_DATA.documents.forEach(doc => {
     if (doc.title.toLowerCase().includes(q) || doc.category.toLowerCase().includes(q)) {
       matches.push({ type: 'Government Circular', title: doc.title, action: `switchTab('docs'); closeSearchModal();` });
     }

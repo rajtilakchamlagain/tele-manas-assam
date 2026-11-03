@@ -1,5 +1,5 @@
 /**
- * MANAS-Assam Role-Based Authentication & Specialized Dashboards
+ * Tele-Raktim-Assam Role-Based Authentication & Specialized Dashboards
  * Manages 3 Distinct User Personas:
  * 1. Citizen (Phone + OTP / Mental Health Predictor & Chat)
  * 2. Doctor (Email + OTP + Medical Reg / Patient Redirection & Solved Triage Queue)
@@ -24,11 +24,11 @@ const ROLE_PROFILES = {
   doctor: {
     name: "Dr. Partha Pratim Das, MD (Psychiatry)",
     nameAs: "ডাঃ পাৰ্থ প্ৰতিম দাস",
-    role: "Senior Consultant Psychiatrist & Tele-MANAS Tier-2 Lead",
+    role: "Senior Consultant Psychiatrist & Tele-Raktim Tier-2 Lead",
     regNo: "AMC/REG/2012/8841",
     email: "dr.ppdas.gmch@assam.gov.in",
     phone: "+91 94350 99881",
-    facility: "GMCH Guwahati & Tele-MANAS Assam Hub",
+    facility: "GMCH Guwahati & Tele-Raktim Assam Hub",
     totalRedirected: 42,
     pendingCases: 9,
     solvedCases: 33,
@@ -257,7 +257,7 @@ function calculateCitizenScore() {
     badgeColor = "bg-red-100 text-red-800 border-red-300 animate-pulse";
   } else if (total >= 6) {
     risk = "Moderate Stress (Yellow)";
-    advice = "You are experiencing moderate anxiety or depressive fatigue. We recommend scheduling a free 20-minute tele-consultation with a Tele-MANAS counsellor.";
+    advice = "You are experiencing moderate anxiety or depressive fatigue. We recommend scheduling a free 20-minute tele-consultation with a Tele-Raktim counsellor.";
     badgeColor = "bg-amber-100 text-amber-800 border-amber-300";
   }
 
@@ -290,7 +290,7 @@ function sendCitizenChatMessage() {
 
   // Bot response simulator
   setTimeout(() => {
-    let reply = "Hello Rahul, I am your Tele-MANAS Wellness Assistant. Your privacy is protected under DPDP Act 2023. How are you feeling right now?";
+    let reply = "Hello Rahul, I am your Tele-Raktim Wellness Assistant. Your privacy is protected under DPDP Act 2023. How are you feeling right now?";
     const lower = userMsg.toLowerCase();
     if (lower.includes('exam') || lower.includes('stress') || lower.includes('panic') || lower.includes('fear')) {
       reply = "Exam panic is very common, but you are not alone. Take three slow deep breaths (4 seconds in, 4 seconds hold, 6 seconds out). Would you like to connect with our adolescent counsellor on 14416 right now?";
@@ -301,7 +301,7 @@ function sendCitizenChatMessage() {
     const botBubble = document.createElement('div');
     botBubble.className = "flex justify-start mb-2";
     botBubble.innerHTML = `<div class="bg-slate-100 text-slate-800 border border-slate-200 rounded-2xl rounded-tl-none px-3.5 py-2 text-xs max-w-xs shadow-sm">
-      <div class="text-[10px] font-bold text-teal-700 uppercase mb-0.5">Tele-MANAS Copilot</div>
+      <div class="text-[10px] font-bold text-teal-700 uppercase mb-0.5">Tele-Raktim Copilot</div>
       ${reply}
     </div>`;
     container.appendChild(botBubble);
@@ -425,7 +425,7 @@ function initAnalyzerCharts() {
   if (ctxA) {
     if (analyzerMacroChartInstance) analyzerMacroChartInstance.destroy();
 
-    const districts = window.MANAS_DATA.districts;
+    const districts = window.RAKTIM_DATA.districts;
     const labels = districts.map(d => d.name);
     const scores = districts.map(d => d.distressIndex);
     const bgColors = districts.map(d => d.tier === 'Red' ? '#DC2626' : (d.tier === 'Amber' ? '#D97706' : '#059669'));

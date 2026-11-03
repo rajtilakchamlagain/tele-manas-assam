@@ -1,10 +1,10 @@
 /**
- * MANAS-Assam Operational Data Repository
- * Verified Geographical, Clinical & Administrative Data for Assam Tele-MANAS Cell
+ * Tele-Raktim-Assam Operational Data Repository
+ * Verified Geographical, Clinical & Administrative Data for Assam Tele-Raktim Cell
  * Department of Health & Family Welfare, Government of Assam
  */
 
-const MANAS_DATA = {
+const RAKTIM_DATA = {
   // Live KPI Summary
   metrics: {
     totalCallsToday: 384,
@@ -290,8 +290,8 @@ const MANAS_DATA = {
   // Official e-Prastuti Document Repository (Acts, Rules & SOPs)
   documents: [
     {
-      title: "Tele-MANAS Assam Cell: Standard Operating Procedures & Clinical Triage Protocol (v3.2)",
-      titleAs: "টেলি-মানস অসম: মানক পৰিচালনা পদ্ধতি আৰু ক্লিনিকেল ট্ৰায়াজ প্ৰট'কল",
+      title: "Tele-Raktim Assam Cell: Standard Operating Procedures & Clinical Triage Protocol (v3.2)",
+      titleAs: "টেলি-ৰক্তিম অসম: মানক পৰিচালনা পদ্ধতি আৰু ক্লিনিকেল ট্ৰায়াজ প্ৰট'কল",
       category: "Clinical Guidelines",
       refNumber: "NHM/MH/TM/2026/SOP-01",
       date: "2026-09-15",
@@ -308,7 +308,7 @@ const MANAS_DATA = {
       format: "PDF"
     },
     {
-      title: "Data Protection Impact Assessment (DPIA) & DPDP Act 2023 Compliance Matrix for Tele-MANAS",
+      title: "Data Protection Impact Assessment (DPIA) & DPDP Act 2023 Compliance Matrix for Tele-Raktim",
       titleAs: "তথ্য সুৰক্ষা প্ৰভাৱ মূল্যায়ন আৰু ডিপিডিপি আইন ২০২৩ অনুকৰণ প্ৰতিবেদন",
       category: "Data Privacy & Legal",
       refNumber: "AS/GOV/HFW/DPDP/2026/49",
@@ -375,4 +375,6 @@ const MANAS_DATA = {
 };
 
 // Expose globally
-window.MANAS_DATA = MANAS_DATA;
+window.RAKTIM_DATA = RAKTIM_DATA;
+
+window.MANAS_DATA = window.RAKTIM_DATA;

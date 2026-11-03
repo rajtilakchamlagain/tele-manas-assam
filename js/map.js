@@ -31,13 +31,13 @@ function initAssamMap() {
 }
 
 function renderDistrictMarkers(filter) {
-  if (!assamMap || !window.MANAS_DATA) return;
+  if (!assamMap || !window.RAKTIM_DATA) return;
 
   // Clear existing markers
   districtMarkers.forEach(m => assamMap.removeLayer(m));
   districtMarkers = [];
 
-  const districts = window.MANAS_DATA.districts;
+  const districts = window.RAKTIM_DATA.districts;
   const currentLang = window.currentLang || 'en';
 
   districts.forEach(dist => {
