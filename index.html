@@ -139,6 +139,18 @@
             <div class="text-sm font-black tracking-tight" data-i18n="tollFreeNumber">14416</div>
           </div>
         </a>
+        <!-- Role Switcher & Sign In Gateway -->
+        <div class="flex items-center space-x-2">
+          <button onclick="openAuthModal()" id="headerLoginBtn" class="flex items-center space-x-1.5 bg-navy-900 hover:bg-navy-800 text-white px-3 py-2 rounded-lg font-bold text-xs shadow transition-colors">
+            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            <span>Sign In / Role Gateway</span>
+          </button>
+          <div id="headerUserPillContainer" class="hidden flex items-center space-x-2 bg-slate-100 border border-slate-300 px-3 py-1.5 rounded-lg text-xs">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span id="headerUserPill" class="font-bold text-navy-900">Rahul Borah (CITIZEN)</span>
+            <button onclick="handleLogout()" class="text-red-600 hover:text-red-800 font-bold ml-1.5" title="Sign Out">✕</button>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -160,6 +172,16 @@
           <button onclick="switchTab('asha')" id="nav-asha" class="portal-nav-btn px-3 py-2 text-xs sm:text-sm text-slate-300 hover:text-white transition-colors" data-i18n="navAsha">Frontline ASHA Portal</button>
           <button onclick="switchTab('docs')" id="nav-docs" class="portal-nav-btn px-3 py-2 text-xs sm:text-sm text-slate-300 hover:text-white transition-colors" data-i18n="navDocs">Government Circulars</button>
           <button onclick="switchTab('contact')" id="nav-contact" class="portal-nav-btn px-3 py-2 text-xs sm:text-sm text-slate-300 hover:text-white transition-colors" data-i18n="navContact">WIM & Directory</button>
+        </div>
+        <!-- Fast Role Switcher Dropdown in Nav -->
+        <div class="flex items-center space-x-2 ml-auto pl-3 border-l border-slate-700">
+          <span class="text-[11px] text-slate-400 hidden xl:inline">Role View:</span>
+          <select id="roleSwitcherDropdown" onchange="updateUserInterfaceForRole(this.value === 'public' ? null : this.value)" class="text-xs bg-slate-800 border border-slate-700 text-amber-400 font-bold rounded px-2 py-1 focus:ring-1 focus:ring-amber-400 focus:outline-none">
+            <option value="public">🏛️ Public e-Prastuti View</option>
+            <option value="citizen">👤 Citizen Dashboard (Rahul Borah)</option>
+            <option value="doctor">🩺 Doctor Caseload (Dr. P. P. Das, MD)</option>
+            <option value="analyzer">📊 State Analyzer / IAS (Shri B. Pegu)</option>
+          </select>
         </div>
       </div>
     </div>
@@ -190,6 +212,318 @@
        5. MAIN CONTENT AREA
        ========================================================================== -->
   <main id="mainContent" class="max-w-7xl mx-auto px-4 sm:px-8 py-6 space-y-8">
+    <!-- ======================================================================
+         ROLE DASHBOARD 1: CITIZEN WELLNESS & PREDICTOR PORTAL
+         ====================================================================== -->
+    <div id="dashboard-citizen" class="role-dashboard-container hidden space-y-6">
+      <!-- Citizen Header Card -->
+      <div class="bg-gradient-to-r from-teal-900 to-navy-900 text-white rounded-2xl p-6 shadow-lg border border-teal-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-center space-x-4">
+          <div class="w-14 h-14 rounded-full bg-teal-700/80 border-2 border-white/20 flex items-center justify-center text-xl font-bold">
+            👤
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 id="citizenProfileName" class="text-xl font-black">Rahul Borah</h2>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-teal-500/30 text-teal-200 border border-teal-400/40">Verified Citizen</span>
+            </div>
+            <div class="text-xs text-teal-200 mt-0.5">
+              Phone: <span id="citizenProfilePhone" class="font-mono">+91 98640 12345</span> | District: <span id="citizenProfileDistrict">Kamrup Metropolitan</span>
+            </div>
+            <div class="text-[11px] text-slate-300 mt-1 font-mono">
+              Confidential Case Token: <span id="citizenProfileToken" class="text-amber-400 font-bold">TOKEN-TM-2026-7712</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="tel:14416" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded-lg text-xs flex items-center space-x-1.5 shadow">
+            <svg class="w-4 h-4 animate-bounce" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+            <span>Emergency SOS 14416</span>
+          </a>
+          <button onclick="handleLogout()" class="px-3 py-2 bg-slate-800/80 hover:bg-slate-700 text-slate-300 font-bold rounded-lg text-xs">
+            Exit to Public View
+          </button>
+        </div>
+      </div>
+
+      <!-- Citizen Main Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left: Mental Health Predictor & Screener (Col 7) -->
+        <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b pb-3">
+            <div>
+              <h3 class="text-base font-black text-navy-900">AI Mental Health Predictor & Self-Check</h3>
+              <p class="text-xs text-slate-500">Standard PHQ-9 & GAD-7 clinical questionnaire with confidential scoring</p>
+            </div>
+            <span id="citizenScoreBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">
+              Score: 14/15 - Moderate Stress
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div>
+              <label class="font-semibold text-slate-800 block mb-1">1. Over the last 2 weeks, how often have you had little interest or pleasure in doing things?</label>
+              <select id="phq-q1" class="w-full bg-slate-50 border border-slate-200 rounded p-1.5">
+                <option value="0">Not at all (0)</option>
+                <option value="1">Several days (1)</option>
+                <option value="2">More than half the days (2)</option>
+                <option value="3" selected>Nearly every day (3)</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-semibold text-slate-800 block mb-1">2. Trouble falling or staying asleep, or sleeping too much?</label>
+              <select id="phq-q2" class="w-full bg-slate-50 border border-slate-200 rounded p-1.5">
+                <option value="0">Not at all (0)</option>
+                <option value="1">Several days (1)</option>
+                <option value="2">More than half the days (2)</option>
+                <option value="3" selected>Nearly every day (3)</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-semibold text-slate-800 block mb-1">3. Feeling tired, fatigued, or having little energy?</label>
+              <select id="phq-q3" class="w-full bg-slate-50 border border-slate-200 rounded p-1.5">
+                <option value="0">Not at all (0)</option>
+                <option value="1">Several days (1)</option>
+                <option value="2" selected>More than half the days (2)</option>
+                <option value="3">Nearly every day (3)</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-semibold text-slate-800 block mb-1">4. Feeling nervous, anxious, or on edge regarding studies/work?</label>
+              <select id="phq-q4" class="w-full bg-slate-50 border border-slate-200 rounded p-1.5">
+                <option value="0">Not at all (0)</option>
+                <option value="1">Several days (1)</option>
+                <option value="2">More than half the days (2)</option>
+                <option value="3" selected>Nearly every day (3)</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-semibold text-slate-800 block mb-1">5. Trouble concentrating on things, such as reading or school work?</label>
+              <select id="phq-q5" class="w-full bg-slate-50 border border-slate-200 rounded p-1.5">
+                <option value="0">Not at all (0)</option>
+                <option value="1">Several days (1)</option>
+                <option value="2">More than half the days (2)</option>
+                <option value="3" selected>Nearly every day (3)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="pt-2 flex items-center justify-between">
+            <button onclick="calculateCitizenScore()" class="px-4 py-2 bg-navy-900 hover:bg-navy-800 text-white font-bold rounded-lg text-xs shadow">
+              Recalculate Stress Index
+            </button>
+            <div id="citizenScoreAdvice" class="text-[11px] text-slate-600 italic max-w-xs text-right">
+              Your responses indicate acute emotional or stress overload. Free tele-callback advised.
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Confidential Wellness Chat & Token Status (Col 5) -->
+        <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center justify-between border-b pb-3 mb-3">
+              <h3 class="text-base font-black text-navy-900 flex items-center">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
+                Confidential Copilot Chat
+              </h3>
+              <span class="text-[10px] text-slate-500 font-mono">DPDP Act 2023 Encrypted</span>
+            </div>
+
+            <!-- Chat message container -->
+            <div id="citizenChatMessages" class="h-64 overflow-y-auto p-2 space-y-2 border border-slate-100 rounded-xl bg-slate-50 text-xs">
+              <div class="flex justify-start mb-2">
+                <div class="bg-slate-100 text-slate-800 border border-slate-200 rounded-2xl rounded-tl-none px-3.5 py-2 text-xs max-w-xs shadow-sm">
+                  <div class="text-[10px] font-bold text-teal-700 uppercase mb-0.5">Tele-MANAS Copilot</div>
+                  Namaskar Rahul. Welcome to your private wellness space. I can help with anxiety grounding, exam stress toolkits, or schedule your callback. How are you feeling today?
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Input Bar -->
+          <div class="flex items-center space-x-2 pt-2 border-t">
+            <input type="text" id="citizenChatInput" onkeydown="if(event.key==='Enter') sendCitizenChatMessage()" placeholder="Type a message (e.g. I have severe exam panic...)" class="flex-1 bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-teal-600">
+            <button onclick="sendCitizenChatMessage()" class="px-3.5 py-2 bg-teal-700 hover:bg-teal-600 text-white rounded-lg text-xs font-bold">
+              Send
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         ROLE DASHBOARD 2: DOCTOR / CLINICAL PSYCHOLOGIST PORTAL
+         ====================================================================== -->
+    <div id="dashboard-doctor" class="role-dashboard-container hidden space-y-6">
+      
+      <!-- Doctor Profile Bar -->
+      <div class="bg-gradient-to-r from-navy-950 to-slate-900 text-white rounded-2xl p-6 shadow-lg border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-center space-x-4">
+          <div class="w-14 h-14 rounded-full bg-blue-900/80 border-2 border-white/20 flex items-center justify-center text-xl font-bold">
+            🩺
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 id="doctorProfileName" class="text-xl font-black">Dr. Partha Pratim Das, MD (Psychiatry)</h2>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/30 text-blue-200 border border-blue-400/40">Tier-2 Specialist Lead</span>
+            </div>
+            <div class="text-xs text-slate-300 mt-0.5">
+              <span id="doctorProfileReg">Reg: AMC/REG/2012/8841</span> | <span id="doctorProfileFacility">GMCH Guwahati & Tele-MANAS Assam Hub</span>
+            </div>
+            <div class="text-[11px] text-teal-400 font-semibold mt-1">
+              Active Roster: Evening Tier-2 Escalation Shift (16:00 - 22:00 IST)
+            </div>
+          </div>
+        </div>
+        <button onclick="handleLogout()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg text-xs">
+          Exit to Public View
+        </button>
+      </div>
+
+      <!-- Doctor Caseload KPI Summary -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-xs font-bold uppercase tracking-wider text-slate-500">Total Patients Redirected</div>
+          <div id="doctorTotalRedirected" class="text-3xl font-black text-navy-900 mt-1">42</div>
+          <div class="text-[11px] text-slate-500 mt-1">From Tele-MANAS Tier-1 Helpline</div>
+        </div>
+        <div class="bg-white p-5 rounded-xl border border-amber-200 shadow-sm bg-amber-50/20">
+          <div class="text-xs font-bold uppercase tracking-wider text-amber-800 flex items-center">
+            <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5 animate-ping"></span>
+            Pending Clinical Review
+          </div>
+          <div id="doctorPendingCases" class="text-3xl font-black text-amber-700 mt-1">09</div>
+          <div class="text-[11px] text-amber-700 mt-1">Require callback or prescription</div>
+        </div>
+        <div class="bg-white p-5 rounded-xl border border-emerald-200 shadow-sm bg-emerald-50/20">
+          <div class="text-xs font-bold uppercase tracking-wider text-emerald-800">Solved / Discharged Cases</div>
+          <div id="doctorSolvedCases" class="text-3xl font-black text-emerald-700 mt-1">33</div>
+          <div class="text-[11px] text-emerald-700 mt-1">78.5% Case Resolution Rate</div>
+        </div>
+      </div>
+
+      <!-- Redirected Patient Registry Table -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+          <div class="text-xs font-bold text-navy-900 flex items-center space-x-2">
+            <svg class="w-4 h-4 text-teal-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z" clip-rule="evenodd"/></svg>
+            <span>Assigned Patient Triage Registry & Action Queue</span>
+          </div>
+          <div class="text-xs text-slate-500">
+            DPDP Act 2023: All identifiers pseudonymized with salted tokens
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-100/70 border-b border-slate-200 text-[11px] font-bold uppercase text-slate-600 tracking-wider">
+                <th class="py-2.5 px-3">Case ID & Token</th>
+                <th class="py-2.5 px-3">Location & Chief Complaint</th>
+                <th class="py-2.5 px-3">Risk Tier</th>
+                <th class="py-2.5 px-3">Current Status</th>
+                <th class="py-2.5 px-3">Prescribed Action</th>
+                <th class="py-2.5 px-3">Clinical Action</th>
+              </tr>
+            </thead>
+            <tbody id="doctorPatientsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         ROLE DASHBOARD 3: STATE ANALYZER / IAS REPRESENTATIVE COMMAND CENTER
+         ====================================================================== -->
+    <div id="dashboard-analyzer" class="role-dashboard-container hidden space-y-6">
+      
+      <!-- Analyzer Header Card -->
+      <div class="bg-gradient-to-r from-slate-950 via-navy-900 to-slate-900 text-white rounded-2xl p-6 shadow-xl border border-amber-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-center space-x-4">
+          <div class="w-14 h-14 rounded-full bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-xl font-bold">
+            📊
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 id="analyzerProfileName" class="text-xl font-black text-amber-300">Shri Biswajit Pegu, IAS</h2>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/40">State Apex Clearance</span>
+            </div>
+            <div class="text-xs text-slate-300 mt-0.5" id="analyzerProfileRole">
+              Commissioner & Secretary, Health & Family Welfare, Govt. of Assam
+            </div>
+            <div class="text-[11px] text-teal-400 font-mono mt-1" id="analyzerProfileClearance">
+              Real-Time State Data Vault Connected | Assam State Data Centre (SDC)
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openDispatchModal()" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-lg text-xs shadow flex items-center space-x-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>Authorise MMU Dispatch</span>
+          </button>
+          <button onclick="handleLogout()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg text-xs">
+            Exit
+          </button>
+        </div>
+      </div>
+
+      <!-- Macro Executive Stat Bar -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[11px] font-bold uppercase text-slate-500">Districts Monitored</div>
+          <div class="text-2xl font-black text-navy-900 mt-1">35 / 35</div>
+          <div class="text-[11px] text-emerald-600 font-semibold mt-1">100% Real-Time Sync</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-red-200 shadow-sm bg-red-50/20">
+          <div class="text-[11px] font-bold uppercase text-red-700">Critical Red-Zone Belts</div>
+          <div class="text-2xl font-black text-red-700 mt-1">03 Districts</div>
+          <div class="text-[11px] text-red-600 font-semibold mt-1">Dhemaji, Barpeta, Kamrup</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[11px] font-bold uppercase text-slate-500">Active Mobile Units (MMU)</div>
+          <div class="text-2xl font-black text-navy-900 mt-1">10 / 10 Fleet</div>
+          <div class="text-[11px] text-teal-700 font-semibold mt-1">Operational in High-Burden Belts</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[11px] font-bold uppercase text-slate-500">Helpline Avg Latency</div>
+          <div class="text-2xl font-black text-navy-900 mt-1">11.2 Sec</div>
+          <div class="text-[11px] text-emerald-600 font-semibold mt-1">National Benchmark: &lt; 20s</div>
+        </div>
+      </div>
+
+      <!-- Interactive Real-Time Analyzer Charts -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Touch-Explorable District Vulnerability Bar Chart (Col 8) -->
+        <div class="lg:col-span-8 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-navy-900">District Distress Severity & Vulnerability Index (Touch & Explore)</h3>
+              <p class="text-xs text-slate-500">Red: Acute Surge (&gt;80) | Amber: Moderate (60-80) | Green: Routine (&lt;60)</p>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-mono">Live SDC Feed</span>
+          </div>
+          <div class="h-72">
+            <canvas id="analyzerDistressChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Resolution & Drop-Out Analytics (Col 4) -->
+        <div class="lg:col-span-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-navy-900">Referral Resolution Rate</h3>
+            <span class="text-xs text-emerald-600 font-bold">78.4%</span>
+          </div>
+          <div class="h-72">
+            <canvas id="analyzerSuccessChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
 
     <!-- TAB 1: HOME & HERO OVERVIEW -->
     <div id="section-home" class="portal-tab-section space-y-8">
@@ -809,12 +1143,141 @@
     </div>
   </div>
 
+
+  <!-- ==========================================================================
+       9. ROLE-BASED AUTHENTICATION GATEWAY MODAL (CITIZEN / DOCTOR / ANALYZER)
+       ========================================================================== -->
+  <div id="authModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-300 overflow-hidden transform transition-all">
+      
+      <!-- Modal Header -->
+      <div class="bg-navy-900 text-white p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <img src="assets/assam-seal.svg" alt="Assam Seal" class="w-8 h-8">
+          <div>
+            <div class="text-[10px] uppercase font-bold text-amber-400 tracking-wider">Government of Assam — Tele-MANAS Portal</div>
+            <div class="text-sm font-black">Role-Based Authentication Gateway</div>
+          </div>
+        </div>
+        <button onclick="closeAuthModal()" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+      </div>
+
+      <!-- 3 Role Tabs -->
+      <div class="flex border-b border-slate-200 text-center">
+        <button onclick="selectRoleTab('citizen')" id="tab-auth-citizen" class="flex-1 py-3 text-xs sm:text-sm font-bold border-b-2 border-navy-900 text-navy-900 bg-white transition-all">
+          👤 Citizen
+        </button>
+        <button onclick="selectRoleTab('doctor')" id="tab-auth-doctor" class="flex-1 py-3 text-xs sm:text-sm font-medium text-slate-500 hover:text-slate-800 bg-slate-50 transition-all">
+          🩺 Doctor / Clinical
+        </button>
+        <button onclick="selectRoleTab('analyzer')" id="tab-auth-analyzer" class="flex-1 py-3 text-xs sm:text-sm font-medium text-slate-500 hover:text-slate-800 bg-slate-50 transition-all">
+          📊 State Analyzer (IAS)
+        </button>
+      </div>
+
+      <!-- Tab Content Area -->
+      <div class="p-6">
+        
+        <!-- Tab 1: Citizen Auth Form -->
+        <div id="form-auth-citizen" class="space-y-4">
+          <div class="bg-teal-50 border border-teal-200 p-3 rounded-lg text-xs text-teal-800">
+            <b>Citizen Fast Access:</b> Sign in using your registered mobile number and OTP (or optional Email) to access your confidential mental wellness predictor and chat.
+          </div>
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">Mobile Phone Number (India +91)</label>
+              <input type="tel" value="+91 98640 12345" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">Email Address (Optional)</label>
+              <input type="email" value="rahul.borah2005@gmail.com" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">One-Time Password (OTP)</label>
+              <input type="text" value="774201" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono tracking-widest">
+            </div>
+          </div>
+          <button onclick="quickLogin('citizen')" class="w-full py-2.5 bg-teal-700 hover:bg-teal-600 text-white font-bold rounded-lg text-xs transition-colors shadow">
+            Verify OTP & Open Citizen Dashboard
+          </button>
+          <div class="pt-2 text-center">
+            <button onclick="quickLogin('citizen')" class="text-xs font-bold text-teal-700 hover:underline">
+              ⚡ 1-Click Demo Login as Citizen (Rahul Borah)
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Doctor Auth Form -->
+        <div id="form-auth-doctor" class="space-y-4 hidden">
+          <div class="bg-blue-50 border border-blue-200 p-3 rounded-lg text-xs text-blue-900">
+            <b>Clinical Professional Access:</b> Restricted to verified Psychiatrists and Clinical Psychologists with registered Medical Council / NMC credentials.
+          </div>
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">Official Email / Google Account</label>
+              <input type="email" value="dr.ppdas.gmch@assam.gov.in" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">Registered Mobile Number (+91)</label>
+              <input type="tel" value="+91 94350 99881" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">Medical Council Registration ID</label>
+              <input type="text" value="AMC/REG/2012/8841" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono">
+            </div>
+          </div>
+          <button onclick="quickLogin('doctor')" class="w-full py-2.5 bg-navy-900 hover:bg-navy-800 text-white font-bold rounded-lg text-xs transition-colors shadow">
+            Authenticate & Access Clinical Caseload
+          </button>
+          <div class="pt-2 text-center">
+            <button onclick="quickLogin('doctor')" class="text-xs font-bold text-navy-900 hover:underline">
+              ⚡ 1-Click Demo Login as Doctor (Dr. P. P. Das, MD)
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 3: State Analyzer / IAS Auth Form -->
+        <div id="form-auth-analyzer" class="space-y-4 hidden">
+          <div class="bg-amber-50 border border-amber-200 p-3 rounded-lg text-xs text-amber-900">
+            <b>State Health Directorate / IAS Clearance:</b> Real-time macro command center access for Health Commissioners, DMHOs, and State Nodal Officers.
+          </div>
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">Government Email ID (@gov.in / @assam.gov.in)</label>
+              <input type="email" value="sec-health@assam.gov.in" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">Registered Civil Service Mobile</label>
+              <input type="tel" value="+91 94351 00012" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono">
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">Department 2FA Hardware Token / OTP</label>
+              <input type="text" value="GOA-IAS-9921" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono">
+            </div>
+          </div>
+          <button onclick="quickLogin('analyzer')" class="w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-slate-950 font-black rounded-lg text-xs transition-colors shadow">
+            Verify 2FA & Access Macro Radar
+          </button>
+          <div class="pt-2 text-center">
+            <button onclick="quickLogin('analyzer')" class="text-xs font-bold text-amber-700 hover:underline">
+              ⚡ 1-Click Demo Login as IAS Officer (Shri Biswajit Pegu)
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="js/data.js"></script>
   <script src="js/translations.js"></script>
   <script src="js/map.js"></script>
   <script src="js/triage.js"></script>
   <script src="js/analytics.js"></script>
+  <script src="js/auth-dashboards.js"></script>
   <script src="js/app.js"></script>
+
 </body>
 </html>
