@@ -106,7 +106,8 @@ const RAKTIM_I18N = {
     policyAccessibility: "Accessibility Statement",
     policyHelp: "Help & FAQ",
     nicCredit: "Designed and Developed for Government of Assam. Hosted by National Informatics Centre (NIC) Assam State Centre.",
-    copyrightText: "© 2026 National Health Mission, Department of Health & Family Welfare, Government of Assam. All Rights Reserved."
+    copyrightText: "© 2026 National Health Mission, Department of Health & Family Welfare, Government of Assam. All Rights Reserved.",
+    devAttribution: "Platform Architecture, AI Decision-Support Pipeline & Prototype Engineering by RTCLtd for Government Demonstration & State Healthcare Evaluation."
   },
 
   as: {
@@ -211,7 +212,8 @@ const RAKTIM_I18N = {
     policyAccessibility: "প্ৰৱেশাধিকাৰ বিবৃতি",
     policyHelp: "সহায় আৰু প্ৰশ্নোত্তৰ",
     nicCredit: "অসম চৰকাৰৰ বাবে পৰিকল্পিত আৰু ৰাষ্ট্ৰীয় তথ্যবিজ্ঞান কেন্দ্ৰ (NIC) অসম ৰাজ্যিক কেন্দ্ৰৰ দ্বাৰা সংৰক্ষিত।",
-    copyrightText: "© ২০২৬ ৰাষ্ট্ৰীয় স্বাস্থ্য অভিযান, স্বাস্থ্য আৰু পৰিয়াল কল্যাণ বিভাগ, অসম চৰকাৰ। সৰ্বস্বত্ব সংৰক্ষিত।"
+    copyrightText: "© ২০২৬ ৰাষ্ট্ৰীয় স্বাস্থ্য অভিযান, স্বাস্থ্য আৰু পৰিয়াল কল্যাণ বিভাগ, অসম চৰকাৰ। সৰ্বস্বত্ব সংৰক্ষিত।",
+    devAttribution: "চৰকাৰী মূল্যায়ন আৰু প্ৰদৰ্শনৰ বাবে RTCLtd দ্বাৰা এই এআই সিদ্ধান্ত-সহায় মঞ্চ আৰু প্ৰট'টাইপ অভিযান্ত্ৰিকতা প্ৰস্তুত কৰা হৈছে।"
   }
 };
 
