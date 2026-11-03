@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" width="160" height="50">
+  <defs>
+    <linearGradient id="nhmRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#991B1B"/>
+    </linearGradient>
+  </defs>
+  <!-- NHM Symbol: Family within circle -->
+  <g transform="translate(6, 4)">
+    <circle cx="21" cy="21" r="20" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.8"/>
+    <!-- Mother, Father and Child simplified silhouette -->
+    <!-- Father -->
+    <circle cx="16" cy="14" r="3" fill="#DC2626"/>
+    <path d="M12,28 C12,21 20,21 20,28 Z" fill="#DC2626"/>
+    <!-- Mother -->
+    <circle cx="26" cy="15" r="2.8" fill="#DC2626"/>
+    <path d="M22,28 C22,22 30,22 30,28 Z" fill="#DC2626"/>
+    <!-- Child in front -->
+    <circle cx="21" cy="22" r="2" fill="#F59E0B"/>
+    <path d="M18,31 C18,27 24,27 24,31 Z" fill="#F59E0B"/>
+    <!-- Green protective arc -->
+    <path d="M8,33 Q21,41 34,33" fill="none" stroke="#16A34A" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+  <text x="56" y="20" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="900" fill="#991B1B">NHM ASSAM</text>
+  <text x="56" y="32" font-family="'Segoe UI', Roboto, sans-serif" font-size="7.5" font-weight="bold" fill="#1E293B">National Health Mission</text>
+  <text x="56" y="41" font-family="'Segoe UI', Roboto, sans-serif" font-size="6.5" font-weight="500" fill="#64748B">Govt. of Assam</text>
+</svg>

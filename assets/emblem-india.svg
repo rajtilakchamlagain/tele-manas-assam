@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130" width="100" height="130">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF37"/>
+      <stop offset="50%" stop-color="#AA7C11"/>
+      <stop offset="100%" stop-color="#583F00"/>
+    </linearGradient>
+  </defs>
+  <!-- Ashoka Lion Capital Vector Silhouette stylized -->
+  <g fill="url(#goldGrad)" stroke="#3E2C00" stroke-width="0.5">
+    <!-- Center Lion -->
+    <path d="M50 10 C46 10 42 13 41 17 C39 21 40 26 42 30 C38 32 37 36 38 40 C39 44 42 47 45 48 C43 51 43 55 45 58 C47 62 50 64 50 64 C50 64 53 62 55 58 C57 55 57 51 55 48 C58 47 61 44 62 40 C63 36 62 32 58 30 C60 26 61 21 59 17 C58 13 54 10 50 10 Z"/>
+    <!-- Left Lion Profile -->
+    <path d="M38 25 C34 25 30 28 29 32 C27 36 28 41 31 45 C28 47 26 51 28 56 C30 60 34 63 38 64 C37 67 38 71 41 74 C43 76 46 77 46 77 C44 73 43 68 44 64 C40 63 37 60 36 57 C39 56 41 53 42 50 C40 46 39 42 41 38 C40 33 40 29 38 25 Z"/>
+    <!-- Right Lion Profile -->
+    <path d="M62 25 C66 25 70 28 71 32 C73 36 72 41 69 45 C72 47 74 51 72 56 C70 60 66 63 62 64 C63 67 62 71 59 74 C57 76 54 77 54 77 C56 73 57 68 56 64 C60 63 63 60 64 57 C61 56 59 53 58 50 C60 46 61 42 59 38 C60 33 60 29 62 25 Z"/>
+    <!-- Abacus Base -->
+    <rect x="22" y="77" width="56" height="12" rx="2" fill="#AA7C11"/>
+    <!-- Ashoka Chakra in Center of Abacus -->
+    <circle cx="50" cy="83" r="5" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+    <circle cx="50" cy="83" r="1.5" fill="#FFFFFF"/>
+    <!-- Galloping Horse and Bull details -->
+    <circle cx="32" cy="83" r="2.5" fill="#D4AF37"/>
+    <circle cx="68" cy="83" r="2.5" fill="#D4AF37"/>
+    <!-- Inverted Lotus Base -->
+    <path d="M26 89 C28 98 38 103 50 103 C62 103 72 98 74 89 Z" fill="url(#goldGrad)"/>
+    <path d="M30 91 C36 99 44 102 50 102 C56 102 64 99 70 91" fill="none" stroke="#3E2C00" stroke-width="0.8"/>
+  </g>
+  <!-- Satyameva Jayate Banner -->
+  <rect x="18" y="108" width="64" height="14" rx="2" fill="#1A365D"/>
+  <text x="50" y="118" font-family="'Noto Sans', 'Segoe UI', Arial, sans-serif" font-size="7" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">सत्यमेव जयते</text>
+</svg>

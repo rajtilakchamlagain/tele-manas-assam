@@ -1,0 +1,220 @@
+/* ==========================================================================
+   e-Prastuti Standard Framework & MANAS-Assam Custom Stylesheet
+   Compliant with Guidelines for Indian Government Websites (GIGW 3.0) & WCAG 2.1 AA
+   Department of Health & Family Welfare, National Health Mission, Assam
+   ========================================================================== */
+
+:root {
+  --primary-navy: #1A365D;
+  --primary-dark: #0F172A;
+  --secondary-blue: #2B6CB0;
+  --accent-teal: #0D9488;
+  --accent-emerald: #059669;
+  --accent-amber: #D97706;
+  --accent-crimson: #BE123C;
+  --bg-light: #F8FAFC;
+  --surface-card: #FFFFFF;
+  --border-subtle: #E2E8F0;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --focus-ring: #0284C7;
+  
+  --font-base: 16px;
+}
+
+/* Accessibility Font Sizing */
+html {
+  font-size: var(--font-base);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg-light);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Assamese regional typography fallback */
+.lang-as {
+  font-family: 'Noto Sans Assamese', 'Inter', -apple-system, sans-serif;
+}
+
+/* Focus Visible outline for GIGW Keyboard Accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Skip to Main Content Link (Standard GIGW accessibility requirement) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 10px;
+  background: var(--primary-navy);
+  color: #FFFFFF;
+  padding: 8px 16px;
+  z-index: 9999;
+  font-weight: 700;
+  border-radius: 0 0 4px 4px;
+  transition: top 0.2s ease;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* Indian Tricolor Ribbon */
+.tricolor-strip {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #FF9933 0%, #FF9933 33.3%, #FFFFFF 33.3%, #FFFFFF 66.6%, #138808 66.6%, #138808 100%);
+}
+
+/* High Contrast Mode (e-Prastuti Accessibility Feature) */
+body.high-contrast {
+  background-color: #000000 !important;
+  color: #FFFF00 !important;
+}
+
+body.high-contrast * {
+  background-color: #000000 !important;
+  color: #FFFF00 !important;
+  border-color: #FFFF00 !important;
+  box-shadow: none !important;
+}
+
+body.high-contrast a,
+body.high-contrast button {
+  color: #00FFFF !important;
+  text-decoration: underline !important;
+}
+
+body.high-contrast .badge-red,
+body.high-contrast .badge-yellow,
+body.high-contrast .badge-green {
+  border: 2px solid #FFFF00 !important;
+  color: #FFFF00 !important;
+}
+
+body.high-contrast img,
+body.high-contrast svg {
+  filter: contrast(180%) brightness(120%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #94A3B8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #64748B;
+}
+
+/* Pulsing Notification Dot */
+.pulse-indicator {
+  position: relative;
+}
+.pulse-indicator::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background-color: #EF4444;
+  border-radius: 50%;
+  animation: pulse-ring 1.8s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.5; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* News Ticker Bar */
+.ticker-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-move {
+  display: inline-block;
+  white-space: nowrap;
+  animation: tickerScroll 42s linear infinite;
+}
+.ticker-move:hover {
+  animation-play-state: paused;
+}
+@keyframes tickerScroll {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Leaflet Map overrides for official clean styling */
+.leaflet-container {
+  font-family: inherit !important;
+  border-radius: 0.75rem;
+}
+.custom-district-popup .leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-subtle);
+}
+.custom-district-popup .leaflet-popup-content {
+  margin: 10px 12px;
+  line-height: 1.4;
+}
+
+/* Custom Marker Styling */
+.district-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 11px;
+  color: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease;
+}
+.district-marker:hover {
+  transform: scale(1.25);
+  z-index: 1000 !important;
+}
+.marker-alert-red { background: #DC2626; }
+.marker-alert-amber { background: #D97706; }
+.marker-alert-green { background: #059669; }
+
+/* Interactive Tabs */
+.nav-tab-active {
+  color: var(--primary-navy);
+  border-bottom: 3px solid var(--primary-navy);
+  font-weight: 700;
+  background-color: #FFFFFF;
+}
+
+/* Print Stylesheet for Official Reports */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    font-size: 12pt;
+  }
+  .print-page-break {
+    page-break-before: always;
+  }
+}

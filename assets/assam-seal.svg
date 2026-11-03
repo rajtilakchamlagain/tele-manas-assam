@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <radialGradient id="assamGold" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF4D0"/>
+      <stop offset="70%" stop-color="#E2B13C"/>
+      <stop offset="100%" stop-color="#9E700E"/>
+    </radialGradient>
+    <linearGradient id="riverBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A365D"/>
+      <stop offset="100%" stop-color="#0D9488"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer Gold Ring with border -->
+  <circle cx="60" cy="60" r="57" fill="#F8FAFC" stroke="#AA7C11" stroke-width="4"/>
+  <circle cx="60" cy="60" r="53" fill="none" stroke="#1A365D" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <circle cx="60" cy="60" r="48" fill="#1A365D"/>
+  
+  <!-- Curved Text Path -->
+  <path id="textPathTop" d="M 20,60 A 40,40 0 1,1 100,60" fill="none"/>
+  <path id="textPathBottom" d="M 100,60 A 40,40 0 0,1 20,60" fill="none"/>
+  
+  <text font-family="'Noto Sans Assamese', Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#FDE047">
+    <textPath href="#textPathTop" startOffset="50%" text-anchor="middle">অসম চৰকাৰ</textPath>
+  </text>
+  <text font-family="'Segoe UI', Arial, sans-serif" font-size="6.5" font-weight="bold" fill="#FFFFFF">
+    <textPath href="#textPathBottom" startOffset="50%" text-anchor="middle">GOVT. OF ASSAM</textPath>
+  </text>
+
+  <!-- Inner Center Disc -->
+  <circle cx="60" cy="60" r="34" fill="url(#assamGold)" stroke="#3E2C00" stroke-width="1.5"/>
+  
+  <!-- Rising Sun and Hills -->
+  <circle cx="60" cy="46" r="10" fill="#E11D48"/>
+  <path d="M 32,62 Q 46,48 60,62 Q 74,48 88,62 Z" fill="#15803D" stroke="#064E3B" stroke-width="1"/>
+  
+  <!-- Brahmaputra River Wave -->
+  <path d="M 30,68 C 42,64 50,72 62,68 C 74,64 82,72 90,68 L 90,73 C 82,76 74,68 62,72 C 50,76 42,68 30,73 Z" fill="url(#riverBlue)"/>
+  
+  <!-- One-Horned Rhinoceros Silhouette -->
+  <g transform="translate(42, 60) scale(0.35)">
+    <path d="M55,30 C58,26 68,20 72,15 C73,14 75,17 74,21 C73,25 76,26 80,28 C85,30 92,36 94,40 C95,43 92,44 87,44 C82,45 80,48 78,54 C76,60 76,70 74,75 L70,75 C68,70 68,64 64,62 C60,60 52,60 48,62 C44,64 44,70 42,75 L38,75 C37,70 36,58 34,54 C32,50 25,48 22,46 C19,44 20,40 24,40 C28,40 32,38 35,34 C38,30 46,28 50,30 Z" fill="#1A365D" stroke="#000" stroke-width="1.5"/>
+    <!-- Horn -->
+    <path d="M85,25 L94,15 C92,20 89,24 85,25 Z" fill="#AA7C11"/>
+  </g>
+  
+  <!-- Twin Stars -->
+  <polygon points="23,60 25,62 23,64 21,62" fill="#D4AF37"/>
+  <polygon points="97,60 99,62 97,64 95,62" fill="#D4AF37"/>
+</svg>

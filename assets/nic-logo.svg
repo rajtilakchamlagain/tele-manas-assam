@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" width="120" height="40">
+  <!-- NIC text in distinctive blue with tricolor dots -->
+  <text x="10" y="27" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="900" fill="#005A9C" letter-spacing="-0.5">NIC</text>
+  <circle cx="56" cy="12" r="3" fill="#FF9933"/>
+  <circle cx="56" cy="20" r="3" fill="#FFFFFF" stroke="#000080" stroke-width="0.8"/>
+  <circle cx="56" cy="28" r="3" fill="#138808"/>
+  <text x="65" y="19" font-family="'Segoe UI', Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#1E293B">National</text>
+  <text x="65" y="27" font-family="'Segoe UI', Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#1E293B">Informatics</text>
+  <text x="65" y="35" font-family="'Segoe UI', Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#005A9C">Centre</text>
+</svg>
