@@ -91,8 +91,8 @@ function runTriageAnalysis(sc) {
   }
 }
 
-// User triggerable custom analyze
-window.triggerAnalyze = function() {
+// User triggerable custom analyze (Connected to SDC Dual-Vault API)
+window.triggerAnalyze = async function() {
   const rawInput = document.getElementById('triageRawInput');
   const analyzeBtn = document.getElementById('btnAnalyzeTranscript');
   if (!rawInput) return;
@@ -102,12 +102,28 @@ window.triggerAnalyze = function() {
     analyzeBtn.innerHTML = `<svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>Analyzing Vernacular Speech...`;
   }
 
-  setTimeout(() => {
-    if (analyzeBtn) {
-      analyzeBtn.disabled = false;
-      analyzeBtn.innerHTML = `Process with IndicBERT Engine`;
-    }
-    // Match closest scenario or parse
+  // Try live API first
+  const apiData = await window.apiAnalyzeTranscript(rawInput.value, "Kamrup Metropolitan", "21 / M");
+
+  if (analyzeBtn) {
+    analyzeBtn.disabled = false;
+    analyzeBtn.innerHTML = `Process with IndicBERT Engine`;
+  }
+
+  if (apiData) {
+    const sc = {
+      rawText: rawInput.value,
+      piiMasked: apiData.scrubbed_text,
+      riskLevel: apiData.tier,
+      riskScore: apiData.triage_score,
+      icdCode: apiData.icd_code,
+      extractedSymptoms: apiData.symptoms,
+      shiftBrief: apiData.shift_brief
+    };
+    runTriageAnalysis(sc);
+    showToast(`Live Dual-Vault Triage Complete! Case ID: ${apiData.case_id}`);
+  } else {
+    // Local fallback
     const text = rawInput.value.toLowerCase();
     let matched = window.RAKTIM_DATA.scenarios[0];
     if (text.includes('exam') || text.includes('পৰীক্ষা') || text.includes('die')) {
@@ -119,10 +135,42 @@ window.triggerAnalyze = function() {
     }
     runTriageAnalysis(matched);
     showToast("NLP Triage Complete: Clinical Entities & Shift Brief Generated.");
-  }, 600);
+  }
+};
+
+
+// Acoustic Vocal Biomarker Analyzer (X-Factor Engine)
+window.triggerAcousticAnalysis = async function() {
+  const btn = document.querySelector('button[onclick="triggerAcousticAnalysis()"]');
+  if (btn) {
+    btn.innerHTML = `<svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>Analyzing Pitch Jitter...`;
+  }
+
+  const data = await window.apiAnalyzeAcoustic();
+
+  setTimeout(() => {
+    if (btn) btn.innerHTML = `Analyze Voice Biomarkers`;
+
+    const jitterEl = document.getElementById('acousticJitter');
+    const tremorEl = document.getElementById('acousticTremor');
+    const pausesEl = document.getElementById('acousticPauses');
+    const scoreEl = document.getElementById('acousticScore');
+    const statusEl = document.getElementById('acousticStatus');
+    const recEl = document.getElementById('acousticRec');
+
+    if (jitterEl) jitterEl.textContent = `${data.pitch_jitter_pct}%`;
+    if (tremorEl) tremorEl.textContent = `${data.vocal_tremor_hz} Hz`;
+    if (pausesEl) pausesEl.textContent = data.speech_pause_ratio;
+    if (scoreEl) scoreEl.textContent = `${data.acoustic_anxiety_score} / 100`;
+    if (statusEl) statusEl.textContent = data.acoustic_status;
+    if (recEl) recEl.textContent = `"${data.recommendation}"`;
+
+    showToast(`Acoustic Vocal Tremor Analysis: Score ${data.acoustic_anxiety_score}/100`);
+  }, 450);
 };
 
 window.copyShiftBrief = function() {
+
   const briefEl = document.getElementById('triageShiftBrief');
   if (briefEl) {
     navigator.clipboard.writeText(briefEl.value).then(() => {
