@@ -108,6 +108,27 @@ def init_db():
     );
     """)
 
+    # Acoustic Vocal Biomarker Live Sessions (X-Factor Engine)
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS acoustic_sessions (
+        session_id TEXT PRIMARY KEY,
+        case_id TEXT,
+        citizen_token TEXT,
+        duration_seconds REAL,
+        mean_pitch_hz REAL,
+        jitter_pct REAL,
+        vocal_tremor_hz REAL,
+        shimmer_pct REAL,
+        hnr_db REAL,
+        pause_ratio REAL,
+        distress_score INTEGER,
+        tier TEXT,
+        clinical_classification TEXT,
+        recommendation TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    """)
+
     conn.commit()
     seed_initial_data(conn)
     conn.close()

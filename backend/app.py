@@ -7,6 +7,7 @@ Department of Health & Family Welfare, Government of Assam
 import os
 import sys
 import json
+import base64
 import random
 from datetime import datetime
 from flask import Flask, request, jsonify, send_from_directory
@@ -15,6 +16,7 @@ from flask import Flask, request, jsonify, send_from_directory
 sys.path.append(os.path.dirname(__file__))
 from database import init_db, get_connection, generate_case_id, mask_phone
 from nlp_engine import analyze_transcript, scrub_pii, analyze_acoustic_biomarkers
+from acoustic_engine import analyze_audio_bytes
 
 # Determine root folder
 STATIC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -371,6 +373,97 @@ def complete_asha_task(task_id):
 # ==============================================================================
 # API: ACOUSTIC VOCAL BIOMARKER ANALYZER (X-FACTOR)
 # ==============================================================================
+@app.route("/api/acoustic/analyze-live", methods=["POST"])
+def api_acoustic_analyze_live():
+    """
+    Accepts live microphone audio payload (base64 WAV or multipart file upload).
+    Executes real DSP analysis: Pitch F0, Jitter %, Shimmer %, Vocal Tremor Hz,
+    Speech Pause Ratio, and Harmonics-to-Noise Ratio (HNR).
+    Logs evaluation session into acoustic_sessions table.
+    """
+    audio_bytes = None
+    data = {}
+
+    if request.is_json:
+        data = request.json or {}
+        b64_str = data.get("audio_base64") or data.get("audio") or ""
+        if b64_str:
+            if "," in b64_str:
+                b64_str = b64_str.split(",", 1)[1]
+            try:
+                audio_bytes = base64.b64decode(b64_str)
+            except Exception as e:
+                return jsonify({"error": f"Invalid base64 audio payload: {str(e)}"}), 400
+    elif "audio" in request.files:
+        audio_file = request.files["audio"]
+        audio_bytes = audio_file.read()
+
+    if not audio_bytes:
+        return jsonify({"error": "No audio stream provided. Provide audio_base64 or upload an audio file."}), 400
+
+    analysis = analyze_audio_bytes(audio_bytes)
+
+    session_id = f"AC-SESS-{datetime.now().strftime('%Y%m%d%H%M%S')}-{random.randint(1000, 9999)}"
+    case_id = data.get("case_id") or "CASE-LIVE-TRIAGE"
+    token = data.get("citizen_token") or "TOKEN-LIVE-MIC"
+
+    bm = analysis.get("biomarkers", {})
+
+    # Save to database
+    try:
+        conn = get_connection()
+        cur = conn.cursor()
+        cur.execute("""
+            INSERT INTO acoustic_sessions (
+                session_id, case_id, citizen_token, duration_seconds,
+                mean_pitch_hz, jitter_pct, vocal_tremor_hz, shimmer_pct,
+                hnr_db, pause_ratio, distress_score, tier,
+                clinical_classification, recommendation
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """, (
+            session_id,
+            case_id,
+            token,
+            analysis.get("duration_seconds", 0.0),
+            bm.get("mean_pitch_hz", 130.0),
+            bm.get("pitch_jitter_pct", 1.2),
+            bm.get("vocal_tremor_hz", 5.0),
+            bm.get("shimmer_pct", 2.5),
+            bm.get("hnr_db", 16.0),
+            bm.get("speech_pause_ratio", 0.20),
+            analysis.get("acoustic_anxiety_score", 45),
+            analysis.get("tier", "Green"),
+            analysis.get("acoustic_status", "Baseline"),
+            analysis.get("recommendation", "")
+        ))
+        conn.commit()
+        conn.close()
+    except Exception as db_err:
+        print(f"Warning: Failed to log acoustic session to DB: {db_err}")
+
+    analysis["session_id"] = session_id
+    analysis["timestamp"] = datetime.now().isoformat()
+
+    return jsonify({
+        "success": True,
+        "data": analysis
+    })
+
+@app.route("/api/acoustic/sessions", methods=["GET"])
+def get_acoustic_sessions():
+    """
+    Returns recent acoustic biomarker evaluation sessions for clinical review.
+    """
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM acoustic_sessions ORDER BY created_at DESC LIMIT 20;")
+    rows = [dict(r) for r in cur.fetchall()]
+    conn.close()
+    return jsonify({
+        "total_sessions": len(rows),
+        "sessions": rows
+    })
+
 @app.route("/api/acoustic/analyze", methods=["POST"])
 def api_acoustic_analyze():
     data = request.json or {}

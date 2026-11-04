@@ -832,47 +832,131 @@
         </div>
 
         <!-- X-FACTOR MODULE: ACOUSTIC VOCAL BIOMARKER ANALYZER -->
-        <div class="mt-6 p-5 bg-gradient-to-r from-slate-900 to-navy-950 text-white rounded-xl border border-teal-500/30 space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
-            <div class="flex items-center space-x-2">
-              <span class="w-3 h-3 rounded-full bg-teal-400 animate-ping"></span>
-              <h4 class="text-sm font-black text-teal-300 uppercase tracking-wider">X-Factor Module: Acoustic Vocal Distress Biomarkers</h4>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-900/60 text-teal-200 border border-teal-700">Detects Panic from Voice Pitch & Tremor</span>
+        <div class="mt-6 p-5 sm:p-6 bg-gradient-to-r from-slate-900 via-navy-950 to-slate-900 text-white rounded-2xl border-2 border-teal-500/40 shadow-2xl space-y-5">
+          <!-- Header & Live Stream Status -->
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="w-3 h-3 rounded-full bg-teal-400 animate-ping"></span>
+                <h4 class="text-base font-black text-teal-300 uppercase tracking-wider flex items-center gap-2">
+                  <span>X-Factor Module: Live Acoustic Vocal Biomarker Laboratory</span>
+                  <span class="text-xs px-2 py-0.5 rounded-full bg-teal-900/80 text-teal-200 border border-teal-600 font-bold">Assam SDC DSP</span>
+                </h4>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">
+                Real-time micro-tremor & vocal tension DSP analysis. Quantifies autonomic hyperarousal, choking pauses, and jitter before clinical dialogue.
+              </p>
             </div>
-            <button onclick="triggerAcousticAnalysis()" class="px-3.5 py-1.5 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded text-xs flex items-center space-x-1 shadow transition-colors">
-              <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"/></svg>
-              <span>Analyze Voice Biomarkers</span>
+
+            <!-- Action Controls -->
+            <div class="flex flex-wrap items-center gap-2">
+              <span id="acousticRecStatusBadge" class="hidden px-3 py-1 bg-red-600/90 text-white rounded-full text-xs font-bold flex items-center space-x-2 animate-pulse">
+                <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+                <span>Recording Live Audio: <span id="acousticCountdown">8s</span></span>
+              </span>
+
+              <button id="btnStartAcousticRec" onclick="startLiveAcousticRecording()" class="px-4 py-2 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold rounded-lg text-xs flex items-center space-x-1.5 shadow-lg shadow-teal-900/40 transition-all cursor-pointer">
+                <svg class="w-4 h-4 mr-1 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"/></svg>
+                <span>🎙️ Record Live Voice (8s Mic)</span>
+              </button>
+
+              <button id="btnStopAcousticRec" onclick="stopLiveAcousticRecording()" class="hidden px-4 py-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded-lg text-xs flex items-center space-x-1.5 shadow transition-all cursor-pointer">
+                <span class="w-2.5 h-2.5 rounded-sm bg-white mr-1"></span>
+                <span>⏹️ Stop & Analyze</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Live Oscilloscope & Audio Waveform Visualizer -->
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono mb-1.5">
+              <span class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>
+                <span>Real-Time Oscilloscope Soundwave (Web Audio API 16kHz PCM Stream)</span>
+              </span>
+              <span class="text-teal-400 font-mono">Micro-tremor Frequency Band: 3.5 - 12.0 Hz</span>
+            </div>
+            <canvas id="acousticVisualizer" width="800" height="60" class="w-full h-14 bg-slate-950 rounded-lg border border-slate-800 block shadow-inner"></canvas>
+          </div>
+
+          <!-- Quick 1-Click Clinical Audio Presets -->
+          <div class="flex flex-wrap items-center gap-2 bg-slate-800/40 p-2.5 rounded-lg border border-slate-800 text-xs">
+            <span class="text-slate-400 font-semibold text-[11px] uppercase tracking-wider flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span>Instant Test Presets:</span>
+            </span>
+            <button onclick="testAcousticPreset('panic')" class="px-2.5 py-1 bg-red-950/80 hover:bg-red-900 border border-red-700/60 text-red-200 rounded text-[11px] font-bold transition-colors cursor-pointer">
+              🔴 Test Case A: Acute Panic / Flood Trauma (High Jitter)
+            </button>
+            <button onclick="testAcousticPreset('depression')" class="px-2.5 py-1 bg-amber-950/80 hover:bg-amber-900 border border-amber-700/60 text-amber-200 rounded text-[11px] font-bold transition-colors cursor-pointer">
+              🟡 Test Case B: Depressive Slowing / Flat Affect (High Pause)
+            </button>
+            <button onclick="testAcousticPreset('baseline')" class="px-2.5 py-1 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-700/60 text-emerald-200 rounded text-[11px] font-bold transition-colors cursor-pointer">
+              🟢 Test Case C: Calm Baseline Phonation
             </button>
           </div>
 
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-            <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
+          <!-- 6-Metric Biomarker Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 text-center">
+            <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 shadow">
               <div class="text-[10px] text-slate-400 uppercase font-semibold">Pitch Jitter (%)</div>
               <div id="acousticJitter" class="text-lg font-black text-amber-400 mt-0.5">4.82%</div>
-              <div class="text-[9px] text-slate-400">Baseline: &lt; 2.5%</div>
+              <div class="text-[9px] text-slate-400">Baseline: &lt; 1.04%</div>
             </div>
-            <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
+            <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 shadow">
               <div class="text-[10px] text-slate-400 uppercase font-semibold">Vocal Tremor (Hz)</div>
               <div id="acousticTremor" class="text-lg font-black text-red-400 mt-0.5">7.45 Hz</div>
-              <div class="text-[9px] text-slate-400">Sympathetic hyperarousal</div>
+              <div class="text-[9px] text-slate-400">Sympathetic arousal</div>
             </div>
-            <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
+            <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 shadow">
               <div class="text-[10px] text-slate-400 uppercase font-semibold">Speech Pause Ratio</div>
               <div id="acousticPauses" class="text-lg font-black text-sky-400 mt-0.5">0.54</div>
-              <div class="text-[9px] text-slate-400">Hesitation / Choking cues</div>
+              <div class="text-[9px] text-slate-400">Hesitation / Latency</div>
             </div>
-            <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
-              <div class="text-[10px] text-slate-400 uppercase font-semibold">Acoustic Anxiety Score</div>
-              <div id="acousticScore" class="text-lg font-black text-red-500 mt-0.5">84 / 100</div>
-              <div id="acousticStatus" class="text-[9px] text-red-300 font-bold">Acute Distress Cues</div>
+            <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 shadow">
+              <div class="text-[10px] text-slate-400 uppercase font-semibold">Mean Pitch (F0)</div>
+              <div id="acousticPitch" class="text-lg font-black text-indigo-400 mt-0.5">218 Hz</div>
+              <div class="text-[9px] text-slate-400">Dynamic inflection</div>
+            </div>
+            <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 shadow">
+              <div class="text-[10px] text-slate-400 uppercase font-semibold">Harmonics (HNR)</div>
+              <div id="acousticHNR" class="text-lg font-black text-teal-400 mt-0.5">9.8 dB</div>
+              <div class="text-[9px] text-slate-400">Normal: &gt; 18 dB</div>
+            </div>
+            <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 shadow">
+              <div class="text-[10px] text-slate-400 uppercase font-semibold">Vocal Shimmer (%)</div>
+              <div id="acousticShimmer" class="text-lg font-black text-orange-400 mt-0.5">6.8%</div>
+              <div class="text-[9px] text-slate-400">Amp perturbation</div>
             </div>
           </div>
 
-          <div class="text-xs text-slate-300 bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/60 flex items-center justify-between">
-            <span id="acousticRec" class="italic text-[11px] text-teal-200">
-              "Acoustic analysis confirms sympathetic nervous system vocal strain. Urgent triage priority advised."
-            </span>
-            <span class="text-[10px] font-mono text-slate-400">ML Model: OpenSMILE + SVM Biomarker</span>
+          <!-- Clinical Decision Stratification Card -->
+          <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-700/80 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+              <div class="text-center bg-slate-950 p-3 rounded-xl border border-slate-800 min-w-[110px]">
+                <div class="text-[10px] text-slate-400 uppercase font-semibold">Acoustic Score</div>
+                <div id="acousticScore" class="text-2xl font-black text-red-500 mt-0.5">84 / 100</div>
+                <span id="acousticTierBadge" class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-red-950 text-red-300 border border-red-600 animate-pulse">RED TIER</span>
+              </div>
+              <div class="space-y-1">
+                <div id="acousticStatus" class="text-sm font-black text-white flex items-center gap-2">
+                  Acute Vocal Tremor & Autonomic Hyperarousal
+                </div>
+                <div id="acousticRec" class="italic text-xs text-teal-200 leading-relaxed max-w-xl">
+                  "Severe sympathetic fight-or-flight vocal tension detected (high jitter/tremor). Prioritize caller for urgent psychiatrist de-escalation."
+                </div>
+              </div>
+            </div>
+
+            <!-- Session & Security Audit -->
+            <div class="text-right text-[11px] text-slate-400 space-y-0.5 font-mono border-t md:border-t-0 md:border-l border-slate-800 pt-2 md:pt-0 md:pl-4 min-w-[200px]">
+              <div>Audit Session: <span id="acousticSessionId" class="text-teal-400">AC-SESS-LIVE-01</span></div>
+              <div class="text-slate-400">Engine: <span class="text-white">Autocorrelation DSP + FFT</span></div>
+              <div class="text-emerald-400 flex items-center justify-end gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clip-rule="evenodd"/></svg>
+                <span>DPDP Act 2023 Encrypted</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1327,6 +1411,7 @@
   <script src="js/analytics.js"></script>
   <script src="js/auth-dashboards.js"></script>
   <script src="js/api-client.js"></script>
+  <script src="js/acoustic-engine.js"></script>
   <script src="js/app.js"></script>
 
 </body>
