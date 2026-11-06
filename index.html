@@ -1016,17 +1016,146 @@
     <!-- TAB 5: FRONTLINE ASHA & CHO PORTAL -->
     <div id="section-asha" class="portal-tab-section hidden space-y-6">
       <div class="border-b border-slate-200 pb-4">
-        <h2 class="text-xl sm:text-2xl font-black text-navy-900" data-i18n="ashaHeading">Grassroots Referral Loop Closure & ASHA Tasking</h2>
+        <div class="flex items-center space-x-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
+          <h2 class="text-xl sm:text-2xl font-black text-navy-900" data-i18n="ashaHeading">Grassroots Referral Loop Closure & ASHA Tasking</h2>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">X-Factor 3 Live</span>
+        </div>
         <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl" data-i18n="ashaSubheading">
           Connecting helpline referrals to village ASHA workers and Community Health Officers (CHOs) to ensure patients in tea gardens and rural riverine blocks do not drop out.
         </p>
       </div>
 
+      <!-- X-FACTOR 3: VERNACULAR VOICE-TO-TASK STUDIO -->
+      <div id="ashaVoiceStudio" class="p-5 sm:p-6 bg-gradient-to-r from-slate-900 via-navy-950 to-slate-900 text-white rounded-2xl border-2 border-emerald-500/40 shadow-2xl space-y-4 transition-all">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              <h3 class="text-base font-black text-emerald-300 uppercase tracking-wide flex items-center gap-2">
+                <span>🎙️ ASHA Vernacular Voice-to-Task Studio</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700 font-bold">অসমীয়া কণ্ঠ বাৰ্তা</span>
+              </h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">
+              Speak field visit updates in natural Assamese or code-mixed dialects. Clinical NLP extracts medication adherence, patient condition, and auto-completes follow-up registers without manual typing.
+            </p>
+          </div>
+
+          <!-- Target Task & Language Selectors -->
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <div>
+              <label class="block text-[10px] text-slate-400 uppercase font-semibold mb-1">Target Referral Task:</label>
+              <select id="ashaTaskSelect" class="bg-slate-800 border border-slate-700 text-white rounded-lg px-2.5 py-1.5 text-xs focus:ring-1 focus:ring-emerald-400 outline-none">
+                <option value="TASK-DBR-084">TASK-DBR-084: Moran Tea Estate (Rameswar Tanti - Alcohol Care)</option>
+                <option value="TASK-DHM-019">TASK-DHM-019: Sissiborgaon Relief (Anamika - Flood Trauma)</option>
+                <option value="TASK-NAG-031">TASK-NAG-031: Kaliabor Block (Dipika - Postpartum Care)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] text-slate-400 uppercase font-semibold mb-1">Speech Dialect:</label>
+              <select id="ashaSpeechLang" class="bg-slate-800 border border-slate-700 text-white rounded-lg px-2.5 py-1.5 text-xs focus:ring-1 focus:ring-emerald-400 outline-none">
+                <option value="as-IN">অসমীয়া (Assamese)</option>
+                <option value="en-IN">Indian English / Code-Mixed</option>
+                <option value="bn-IN">বাংলা (Bengali / Barak Valley)</option>
+                <option value="hi-IN">हिन्दी (Hindi)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recording & Transcript Area -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-400 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>Spoken Voice Note Transcript (Real-Time Web Speech API Recognition):</span>
+            </span>
+            <span id="ashaVoicePulseBadge" class="hidden px-2.5 py-0.5 bg-red-600/90 text-white rounded-full text-[11px] font-bold flex items-center space-x-1.5 animate-pulse">
+              <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+              <span>Listening to Voice... Speak now</span>
+            </span>
+          </div>
+
+          <textarea id="ashaVoiceTranscript" rows="2" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl p-3 text-sm text-white placeholder-slate-500 font-sans focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all shadow-inner" placeholder="Speak your patient update in Assamese or English... (যেনে: ৰমেন দাসৰ ঘৰলৈ গৈছিলোঁ, দৰব দিছোঁ, এতিয়া সুস্থ আছে)"></textarea>
+
+          <!-- 1-Click Vernacular Demo Presets -->
+          <div class="flex flex-wrap items-center gap-2 bg-slate-800/40 p-2.5 rounded-lg border border-slate-800 text-xs">
+            <span class="text-slate-400 font-semibold text-[11px] uppercase tracking-wider flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span>Instant Presets:</span>
+            </span>
+            <button onclick="setAshaVoicePreset('home_visit_as')" class="px-2.5 py-1 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-700/60 text-emerald-200 rounded text-[11px] font-bold transition-colors cursor-pointer">
+              🟢 Preset 1 (অসমীয়া): ৰমেন দাসৰ ঘৰলৈ গৈছিলোঁ, ঔষধ নিয়মীয়া
+            </button>
+            <button onclick="setAshaVoicePreset('counselling_as')" class="px-2.5 py-1 bg-teal-950/80 hover:bg-teal-900 border border-teal-700/60 text-teal-200 rounded text-[11px] font-bold transition-colors cursor-pointer">
+              🔵 Preset 2 (চাহ বাগিচা): মৰাণ বাগিচাত পৰিয়ালক পৰামৰ্শ
+            </button>
+            <button onclick="setAshaVoicePreset('relapse_escalate')" class="px-2.5 py-1 bg-red-950/80 hover:bg-red-900 border border-red-700/60 text-red-200 rounded text-[11px] font-bold transition-colors cursor-pointer">
+              🔴 Preset 3 (জৰুৰী সতৰ্কতা): সুৰা খোৱাৰ লক্ষণ, ডাক্তৰক অৱগত
+            </button>
+            <button onclick="setAshaVoicePreset('postpartum_en')" class="px-2.5 py-1 bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-700/60 text-indigo-200 rounded text-[11px] font-bold transition-colors cursor-pointer">
+              🟣 Preset 4 (Code-Mixed): Dipika visit done, stable
+            </button>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+            <div class="flex items-center space-x-2">
+              <button id="btnStartAshaVoice" onclick="startAshaVoiceRecording()" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-lg text-xs flex items-center space-x-1.5 shadow-lg shadow-emerald-900/40 transition-all cursor-pointer">
+                <svg class="w-4 h-4 mr-1 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"/></svg>
+                <span>🎙️ Record Voice Note (কওক)</span>
+              </button>
+
+              <button id="btnStopAshaVoice" onclick="stopAshaVoiceRecording()" class="hidden px-4 py-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded-lg text-xs flex items-center space-x-1.5 shadow transition-all cursor-pointer">
+                <span class="w-2.5 h-2.5 rounded-sm bg-white mr-1"></span>
+                <span>⏹️ Stop Listening</span>
+              </button>
+            </div>
+
+            <button id="btnSubmitAshaVoice" onclick="submitAshaVoiceNote()" class="px-5 py-2 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold rounded-lg text-xs flex items-center space-x-1.5 shadow-lg shadow-sky-900/40 transition-all cursor-pointer">
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Process Voice Note & Auto-Close Loop (সম্পন্ন কৰক)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Result Confirmation Banner -->
+        <div id="ashaVoiceResultCard" class="hidden bg-slate-950 p-4 rounded-xl border border-emerald-500/50 space-y-2 mt-3 animate-fade-in">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2">
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              <span class="text-xs font-black text-emerald-300 uppercase tracking-wider">Loop Closure Confirmation & GMCH Tele-Sync</span>
+              <span id="ashaResStatus" class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-emerald-950 text-emerald-300 border border-emerald-600">Completed</span>
+            </div>
+            <div class="text-[11px] font-mono text-slate-400">Task Ref: <span id="ashaResTaskId" class="text-white font-bold">TASK-DBR-084</span></div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs pt-1">
+            <div class="space-y-1">
+              <div class="text-[10px] text-slate-400 uppercase font-semibold">Extracted Clinical Actions (Bilingual):</div>
+              <div id="ashaResActionEn" class="text-emerald-300 font-bold">Home Visit Conducted • Medication Adherence Verified</div>
+              <div id="ashaResActionAs" class="text-slate-300 text-[11px]">গৃহ পৰিদৰ্শন সম্পন্ন আৰু ঔষধৰ নিয়মীয়া ব্যৱহাৰ নিশ্চিত</div>
+            </div>
+            <div class="space-y-1">
+              <div class="text-[10px] text-slate-400 uppercase font-semibold">DPDP Act Scrubbed Spoken Transcript:</div>
+              <div id="ashaResTranscript" class="text-slate-300 italic text-[11px] bg-slate-900 p-2 rounded border border-slate-800">"ৰমেন দাসৰ ঘৰলৈ গৈছিলোঁ..."</div>
+            </div>
+          </div>
+
+          <div class="text-[11px] text-slate-400 bg-slate-900/60 p-2 rounded border border-slate-800 flex items-center justify-between">
+            <div>Doctor Handover Dispatched: <span id="ashaResDoctorHandover" class="text-slate-300">Case solved via verified field visit.</span></div>
+            <span class="text-[10px] font-mono text-emerald-400">Vault 2 Synced</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTIVE ASHA WORKLIST TABLE -->
       <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="p-4 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
           <div class="text-xs font-bold text-navy-900 flex items-center space-x-2">
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-            <span>Active Lost-to-Care Queue (District Sync Active)</span>
+            <span>Active Lost-to-Care Queue (District & Block Sync Active)</span>
           </div>
           <div class="text-xs text-slate-500">
             Complies with Mental Healthcare Act 2017 & Consent Protocols
@@ -1040,10 +1169,10 @@
                 <th class="py-2.5 px-3" data-i18n="colTask">Task ID</th>
                 <th class="py-2.5 px-3" data-i18n="colDistrict">District & Block</th>
                 <th class="py-2.5 px-3" data-i18n="colPatient">Patient Code</th>
-                <th class="py-2.5 px-3" data-i18n="colReason">Trigger</th>
+                <th class="py-2.5 px-3" data-i18n="colReason">Trigger Reason</th>
                 <th class="py-2.5 px-3" data-i18n="colAsha">Assigned Frontline Worker</th>
                 <th class="py-2.5 px-3" data-i18n="colStatus">Status</th>
-                <th class="py-2.5 px-3" data-i18n="colAction">Actionable Guidance</th>
+                <th class="py-2.5 px-3" data-i18n="colAction">Action & Voice Note</th>
               </tr>
             </thead>
             <tbody id="ashaTasksTableBody"></tbody>
@@ -1412,6 +1541,7 @@
   <script src="js/auth-dashboards.js"></script>
   <script src="js/api-client.js"></script>
   <script src="js/acoustic-engine.js"></script>
+  <script src="js/asha-voice.js"></script>
   <script src="js/app.js"></script>
 
 </body>

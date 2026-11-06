@@ -89,6 +89,9 @@ def init_db():
         priority TEXT NOT NULL,
         status TEXT NOT NULL DEFAULT 'Pending Visit',
         guidance TEXT NOT NULL,
+        voice_note_transcript TEXT,
+        clinical_action TEXT,
+        completed_at TIMESTAMP,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     """)

@@ -17,6 +17,7 @@ sys.path.append(os.path.dirname(__file__))
 from database import init_db, get_connection, generate_case_id, mask_phone
 from nlp_engine import analyze_transcript, scrub_pii, analyze_acoustic_biomarkers
 from acoustic_engine import analyze_audio_bytes
+from voice_task_handler import process_asha_voice_note
 
 # Determine root folder
 STATIC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -365,10 +366,32 @@ def get_asha_tasks():
 def complete_asha_task(task_id):
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("UPDATE asha_referral_tasks SET status = 'Completed' WHERE task_id = ?;", (task_id,))
+    cur.execute("UPDATE asha_referral_tasks SET status = 'Completed', completed_at = ? WHERE task_id = ?;", (datetime.now().isoformat(), task_id))
     conn.commit()
     conn.close()
     return jsonify({"success": True, "task_id": task_id, "status": "Completed"})
+
+# ==============================================================================
+# API: ASHA VERNACULAR VOICE-TO-TASK RECORDER (X-FACTOR 3)
+# ==============================================================================
+@app.route("/api/asha/voice-note", methods=["POST"])
+def api_asha_voice_note():
+    """
+    X-Factor 3: ASHA Vernacular Voice-to-Task Pipeline
+    Accepts speech transcript or audio notes from frontline ASHA/CHO workers.
+    Extracts clinical entities, actions, verifies medication adherence,
+    auto-closes referral loop, and syncs with GMCH psychiatrist dashboard.
+    """
+    data = request.json or {}
+    task_id = data.get("task_id")
+    transcript = data.get("transcript") or data.get("voice_text") or ""
+    asha_name = data.get("asha_name")
+
+    if not transcript:
+        return jsonify({"error": "No voice transcript or audio text provided"}), 400
+
+    result = process_asha_voice_note(task_id, transcript, asha_name)
+    return jsonify(result)
 
 # ==============================================================================
 # API: ACOUSTIC VOCAL BIOMARKER ANALYZER (X-FACTOR)

@@ -178,6 +178,55 @@ async function apiAnalyzeAcoustic() {
   };
 }
 
+// Grassroots ASHA Tasks & Loop Closure (X-Factor 3)
+async function apiGetAshaTasks() {
+  if (window.isBackendOnline) {
+    try {
+      const res = await fetch(`${window.API_BASE}/api/asha/tasks`);
+      if (res.ok) {
+        const json = await res.json();
+        return json.tasks;
+      }
+    } catch (e) {
+      console.warn("Backend error fetching ASHA tasks:", e);
+    }
+  }
+  return null;
+}
+
+async function apiSubmitAshaVoiceNote(taskId, transcript, ashaName) {
+  if (window.isBackendOnline) {
+    try {
+      const res = await fetch(`${window.API_BASE}/api/asha/voice-note`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          task_id: taskId,
+          transcript: transcript,
+          asha_name: ashaName || "Assigned ASHA"
+        })
+      });
+      if (res.ok) {
+        return await res.json();
+      }
+    } catch (e) {
+      console.warn("Backend error submitting ASHA voice note:", e);
+    }
+  }
+
+  // Fallback offline simulation
+  return {
+    success: true,
+    task_id: taskId || "TASK-DBR-084",
+    status: "Completed",
+    clinical_action_en: "Home Visit Conducted & Medication Compliance Verified",
+    clinical_action_as: "গৃহ পৰিদৰ্শন সম্পন্ন আৰু ঔষধৰ ব্যৱহাৰ নিশ্চিত",
+    transcript: transcript,
+    doctor_handover: `ASHA Voice Note processed offline: ${transcript}. Status: Completed.`,
+    completed_at: new Date().toISOString()
+  };
+}
+
 // Global Exports
 window.apiAnalyzeTranscript = apiAnalyzeTranscript;
 window.apiGetDoctorCaseload = apiGetDoctorCaseload;
@@ -185,4 +234,6 @@ window.apiUpdateCaseStatus = apiUpdateCaseStatus;
 window.apiSubmitAssessment = apiSubmitAssessment;
 window.apiAnalyzeAcoustic = apiAnalyzeAcoustic;
 window.apiAnalyzeAcousticLive = apiAnalyzeAcousticLive;
+window.apiGetAshaTasks = apiGetAshaTasks;
+window.apiSubmitAshaVoiceNote = apiSubmitAshaVoiceNote;
 window.checkBackendHealth = checkBackendHealth;

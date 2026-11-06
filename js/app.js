@@ -154,6 +154,10 @@ function switchTab(tabId) {
    Dynamic Table Renderers (ASHA Tasks & Documents)
    ========================================================================== */
 function populateAshaTasks() {
+  if (typeof window.refreshAshaTasksTable === 'function') {
+    window.refreshAshaTasksTable();
+    return;
+  }
   const tbody = document.getElementById('ashaTasksTableBody');
   if (!tbody || !window.RAKTIM_DATA) return;
 
